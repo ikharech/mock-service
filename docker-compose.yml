@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  server:
+    container_name: mock-service
+    build:
+      context: ./server
+      dockerfile: dev.Dockerfile
+    logging:
+      options:
+        max-size: 10m
+    command: npm run start:dev
+    environment:
+      - ENV=${env}
+    volumes:
+      - ./server:/app:delegated
+      - /app/node_modules
+    ports:
+      - 8083:8080
+    depends_on:
+      - mock-db
+    networks:
+      - mock-network
+
+  mock-db:
+    container_name: mock-db
+    image: postgres:11
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: app_dev
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./database/postgresql/data/:/var/lib/postgresql/data:z
+    networks:
+      - mock-network
+
+networks:
+  mock-network:

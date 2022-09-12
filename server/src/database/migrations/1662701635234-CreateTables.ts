@@ -21,7 +21,7 @@ export class CreateTables1662701635234 implements MigrationInterface {
         "type" VARCHAR(255) NOT NULL,
         "successBody" VARCHAR(5000) NOT NULL,
         "errorBody" VARCHAR(5000) NOT NULL,
-        "requestType": VARCHAR(255) NOT NULL,
+        "requestType" VARCHAR(255) NOT NULL,
 
         "companyid" SERIAL,
         CONSTRAINT fk_company

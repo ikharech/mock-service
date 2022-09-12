@@ -8,7 +8,7 @@ import {
 import { Company } from './Company';
 
 @Entity('response', { schema: 'public' })
-export class Response {
+export class MockedResponse {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -22,7 +22,10 @@ export class Response {
   type: string;
 
   @Column({ length: 5000 })
-  body: string;
+  successBody: string;
+
+  @Column({ length: 5000 })
+  errorBody: string;
 
   @ManyToOne(() => Company, (company) => company.responses, {
     cascade: true,

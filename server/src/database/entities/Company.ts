@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Response } from './Response';
+import { MockedResponse } from './MockedResponse';
 
 @Entity('company', { schema: 'public' })
 export class Company {
@@ -12,6 +12,6 @@ export class Company {
   @Column()
   public!: boolean;
 
-  @OneToMany(() => Response, (response) => response.company)
-  responses!: Response[];
+  @OneToMany(() => MockedResponse, (response) => response.company)
+  responses!: MockedResponse[];
 }

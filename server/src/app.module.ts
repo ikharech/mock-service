@@ -6,12 +6,14 @@ import { Roles } from '@entities/Roles';
 import { Users } from '@entities/Users';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './api/user/user.module';
 import { CreateTables1662701635234 } from './database/migrations/1662701635234-CreateTables';
 import { CreateGlobalAdmin1662985974442 } from './database/migrations/1662985974442-CreateGlobalAdmin';
 import { GlobalModule } from './global.module';
 
 @Module({
   imports: [
+    UserModule,
     GlobalModule,
     TypeOrmModule.forRootAsync({
       imports: [DatabaseConfigModule],

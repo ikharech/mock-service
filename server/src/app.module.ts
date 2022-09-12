@@ -1,8 +1,13 @@
 import { DatabaseConfigModule } from '@configs/database/database-config.module';
 import { DatabaseConfigService } from '@configs/database/database-config.service';
+import { Companies } from '@entities/Companies';
+import { MockedResponses } from '@entities/MockedResponses';
+import { Roles } from '@entities/Roles';
+import { Users } from '@entities/Users';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateTables1662701635234 } from './database/migrations/1662701635234-CreateTables';
+import { CreateGlobalAdmin1662985974442 } from './database/migrations/1662985974442-CreateGlobalAdmin';
 import { GlobalModule } from './global.module';
 
 @Module({
@@ -24,8 +29,8 @@ import { GlobalModule } from './global.module';
             rejectUnauthorized: false,
           },
         }),
-        entities: [],
-        migrations: [CreateTables1662701635234],
+        entities: [Companies, MockedResponses, Roles, Users],
+        migrations: [CreateTables1662701635234, CreateGlobalAdmin1662985974442],
         migrationsRun: databaseConfigService.migrationsRun,
         synchronize: false,
       }),

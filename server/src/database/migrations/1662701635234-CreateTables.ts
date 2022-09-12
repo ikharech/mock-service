@@ -5,11 +5,37 @@ export class CreateTables1662701635234 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS "public"."roles"
+            ("id" SERIAL NOT NULL PRIMARY KEY,
+             "name" VARCHAR(255) NOT NULL
+        );
+        `,
+    );
+
+    await queryRunner.query(
+      `CREATE TABLE IF NOT EXISTS "public"."users"
+           ("username" VARCHAR(255) NOT NULL PRIMARY KEY,
+           "password" VARCHAR(255) NOT NULL,
+           
+           "role" INTEGER,
+           CONSTRAINT fk_role
+           FOREIGN KEY("role") 
+	         REFERENCES roles(id)
+        )`,
+    );
+
+    await queryRunner.query(
       `CREATE TABLE  IF NOT EXISTS "public"."company" (
           "id" SERIAL NOT NULL PRIMARY KEY,
           "name" VARCHAR(255) NOT NULL,
           "private" BOOLEAN,
-          "public" BOOLEAN
+          "public" BOOLEAN,
+
+          "userid" VARCHAR(255),
+          CONSTRAINT fk_user
+          FOREIGN KEY("userid") 
+          REFERENCES "users"(username)
+          ON DELETE CASCADE
         )`,
     );
 

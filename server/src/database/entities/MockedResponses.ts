@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Company } from './Company';
+import { Companies } from '@entities/Companies';
 
-@Entity('response', { schema: 'public' })
-export class MockedResponse {
+@Entity('mocked_responses', { schema: 'public' })
+export class MockedResponses {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -30,7 +30,7 @@ export class MockedResponse {
   @Column()
   requestType: string;
 
-  @ManyToOne(() => Company, (company) => company.responses, {
+  @ManyToOne(() => Companies, (company) => company.responses, {
     cascade: true,
   })
   @JoinColumn({ name: 'company' })

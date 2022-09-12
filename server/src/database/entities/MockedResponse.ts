@@ -27,6 +27,9 @@ export class MockedResponse {
   @Column({ length: 5000 })
   errorBody: string;
 
+  @Column()
+  requestType: string;
+
   @ManyToOne(() => Company, (company) => company.responses, {
     cascade: true,
   })

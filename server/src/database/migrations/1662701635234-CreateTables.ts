@@ -14,12 +14,14 @@ export class CreateTables1662701635234 implements MigrationInterface {
     );
 
     await queryRunner.query(
-      `CREATE TABLE IF NOT EXISTS "public"."response" (
+      `CREATE TABLE IF NOT EXISTS "public"."mocked_response" (
         "id" SERIAL NOT NULL PRIMARY KEY,
         "url" VARCHAR(2048) NOT NULL,
         "statusCode" INT NOT NULL,
         "type" VARCHAR(255) NOT NULL,
-        "body" VARCHAR(5000) NOT NULL,
+        "successBody" VARCHAR(5000) NOT NULL,
+        "errorBody" VARCHAR(5000) NOT NULL,
+        "requestType": VARCHAR(255) NOT NULL,
 
         "companyid" SERIAL,
         CONSTRAINT fk_company

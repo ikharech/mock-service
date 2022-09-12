@@ -17,6 +17,17 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @Put(':username')
+  @UsePipes(
+    new ValidationPipe({ skipMissingProperties: false, whitelist: true }),
+  )
+  async update(
+    @Param('username') username: string,
+    @Body() body: UpdateUserDto,
+  ) {
+    await this.userService.updateUser(username, body);
+  }
+
   @Post()
   @UsePipes(
     new ValidationPipe({ skipMissingProperties: false, whitelist: true }),
@@ -38,22 +49,14 @@ export class UserController {
     return { userList };
   }
 
-  @Get()
+  @Get(':username')
   async getOne(@Param('username') username: string) {
     const user = await this.userService.getByUsername(username);
 
     return user;
   }
 
-  @Put()
-  async update(
-    @Param('username') username: string,
-    @Body() body: UpdateUserDto,
-  ) {
-    await this.userService.updateUser(username, body);
-  }
-
-  @Delete()
+  @Delete(':username')
   async delete(@Param('username') username: string) {
     await this.userService.deleteUser(username);
   }

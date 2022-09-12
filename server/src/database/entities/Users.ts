@@ -3,10 +3,10 @@ import { Roles } from '@entities/Roles';
 
 @Entity('users', { schema: 'public' })
 export class Users {
-  @PrimaryColumn({ unique: true })
+  @PrimaryColumn({ unique: true, nullable: false })
   username!: string;
 
-  @Column()
+  @Column({ nullable: false })
   password!: string;
 
   @ManyToOne(() => Roles, (role) => role.users, {

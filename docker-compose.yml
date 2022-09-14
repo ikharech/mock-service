@@ -1,8 +1,24 @@
 version: '3.7'
 
 services:
+  client:
+    container_name: mock_service_client
+    build:
+      context: ./client
+      dockerfile: dev.Dockerfile
+    logging:
+      options:
+        max-size: 10m
+    command: npm start
+    networks:
+      - mock_service_network
+    volumes:
+      - ./client:/app:delegated
+      - /app/node_modules
+    ports:
+      - "3000:3000"
   server:
-    container_name: mock-service
+    container_name: mock_service_server
     build:
       context: ./server
       dockerfile: dev.Dockerfile
@@ -20,7 +36,7 @@ services:
     depends_on:
       - mock-db
     networks:
-      - mock-network
+      - mock_service_network
 
   mock-db:
     container_name: mock-db
@@ -34,7 +50,7 @@ services:
     volumes:
       - ./database/postgresql/data/:/var/lib/postgresql/data:z
     networks:
-      - mock-network
+      - mock_service_network
 
 networks:
-  mock-network:
+  mock_service_network:

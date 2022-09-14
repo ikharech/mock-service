@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "jsx-a11y",
+    "prettier"
+  ],
+  "rules": {
+    "react/forbid-prop-types": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "semi": 1,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-max-props-per-line": [1, { "maximum": 1 }],
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomInputLabel"],
+      "labelAttributes": ["label"],
+      "controlComponents": ["CustomInput"],
+      "depth": 3
+    }],
+  "no-unused-vars": "off",
+  "react/jsx-props-no-spreading": [0],
+  "react/destructuring-assignment": ["off"],
+  "react/require-default-props": [0],
+  "no-use-before-define": "off",
+  "@typescript-eslint/no-use-before-define": ["error"],
+  "import/extensions": "off",
+  "max-len": ["error", { "code": 150, "ignoreStrings": true }],
+  "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
+  "one-var": [2, { "initialized": "never" }],
+  "jsx-quotes": ["error", "prefer-single"],
+  "no-param-reassign": "off",
+  "react/button-has-type": "off",
+  "no-shadow": "off",
+  "quote-props": ["warn","as-needed", { "numbers": false }],
+  "no-tabs": ["error",{ "allowIndentationTabs": true}],
+  "import/no-unresolved": "off",
+  "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+  "react-hooks/exhaustive-deps": ["off"],
+  "no-nested-ternary": ["off"],
+  "camelcase": ["off"],
+  "prefer-destructuring": ["off"]
+  }
+}

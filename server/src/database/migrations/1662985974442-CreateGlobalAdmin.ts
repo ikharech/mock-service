@@ -2,21 +2,18 @@ import CryptoJS from 'crypto-js';
 import { Roles } from '@entities/Roles';
 import { Users } from '@entities/Users';
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { AppConfigService } from '@configs/app/app-config.service';
 
 export class CreateGlobalAdmin1662985974442 implements MigrationInterface {
   name = 'CreateGlobalAdmin1662985974442';
-
-  constructor(private configService: AppConfigService) {}
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await this.createGlobalAdmin(queryRunner);
   }
 
   private async createGlobalAdmin(queryRunner: QueryRunner) {
-    const globalAdminRole = this.configService.globalAdminRole;
-    const globalAdminName = this.configService.globalAdminName;
-    const globalAdminPassword = this.configService.globalAdminPassword;
+    const globalAdminRole = process.env.GLOBAL_ADMIN_ROLE;
+    const globalAdminName = process.env.GLOBAL_ADMIN_NAME;
+    const globalAdminPassword = process.env.GLOBAL_ADMIN_PASSWORD;
 
     const rolesRepository = await queryRunner.connection.getRepository(Roles);
     const usersRepository = await queryRunner.connection.getRepository(Users);

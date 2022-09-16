@@ -22,6 +22,18 @@ export class AppConfigService {
   }
 
   get globalAdminPassword(): string {
-    return this.configService.get<string>('app. global_admin_password');
+    return this.configService.get<string>('app.global_admin_password');
+  }
+
+  get authSecret(): string {
+    return this.configService.get<string>('app.auth_secret');
+  }
+
+  get authTokenLifetime(): string {
+    return this.configService.get<string>('app.auth_token_lifetime');
+  }
+
+  get saltRounds(): number {
+    return +this.configService.get<string>('auth_salt_rounds');
   }
 }

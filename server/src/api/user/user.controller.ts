@@ -6,9 +6,11 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -17,6 +19,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Put(':username')
   @UsePipes(
     new ValidationPipe({ skipMissingProperties: false, whitelist: true }),
@@ -28,6 +31,7 @@ export class UserController {
     await this.userService.updateUser(username, body);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UsePipes(
     new ValidationPipe({ skipMissingProperties: false, whitelist: true }),
@@ -42,6 +46,7 @@ export class UserController {
     return user;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/list')
   async getUserList() {
     const userList = await this.userService.getAll();
@@ -49,13 +54,7 @@ export class UserController {
     return { userList };
   }
 
-  @Get(':username')
-  async getOne(@Param('username') username: string) {
-    const user = await this.userService.getByUsername(username);
-
-    return user;
-  }
-
+  @UseGuards(JwtAuthGuard)
   @Delete(':username')
   async delete(@Param('username') username: string) {
     await this.userService.deleteUser(username);

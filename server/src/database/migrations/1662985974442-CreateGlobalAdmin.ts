@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import * as bcrypt from 'bcrypt';
 import { Roles } from '@entities/Roles';
 import { Users } from '@entities/Users';
 import { MigrationInterface, QueryRunner } from 'typeorm';
@@ -31,9 +31,9 @@ export class CreateGlobalAdmin1662985974442 implements MigrationInterface {
     }
 
     if (!user) {
-      const hashedPassword = CryptoJS.SHA256(
-        globalAdminPassword as string,
-      ).toString();
+      const saltRounds = process.env.AUTH_SALT_ROUNDS;
+      const hashedPassword = await bcrypt.hash(globalAdminPassword, saltRounds);
+
       const user = usersRepository.create({
         username: globalAdminName,
         password: hashedPassword,

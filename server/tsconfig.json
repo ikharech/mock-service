@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "target": "es2017",
+    "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -22,7 +22,8 @@
       "@helpers/*": ["src/common/helpers/*"],
       "@configs/*": ["src/config/*"],
       "@interfaces/*": ["src/common/interfaces/*"],
-      "@entities/*": ["src/database/entities/*"]
+      "@entities/*": ["src/database/entities/*"],
+      "@guards/*": ["src/api/guards/*"]
     }
   }
 } 

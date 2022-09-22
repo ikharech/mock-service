@@ -13,6 +13,15 @@ export class CreateTables1662701635234 implements MigrationInterface {
     );
 
     await queryRunner.query(
+      `CREATE TABLE  IF NOT EXISTS "public"."companies" (
+          "id" SERIAL NOT NULL PRIMARY KEY,
+          "name" VARCHAR(255) NOT NULL UNIQUE,
+          "private" BOOLEAN,
+          "public" BOOLEAN
+        )`,
+    );
+
+    await queryRunner.query(
       `CREATE TABLE IF NOT EXISTS "public"."users"
            ("username" VARCHAR(255) NOT NULL PRIMARY KEY,
            "password" VARCHAR(255) NOT NULL,
@@ -20,22 +29,12 @@ export class CreateTables1662701635234 implements MigrationInterface {
            "role" INTEGER,
            CONSTRAINT fk_role
            FOREIGN KEY("role") 
-	         REFERENCES roles(id)
-        )`,
-    );
-
-    await queryRunner.query(
-      `CREATE TABLE  IF NOT EXISTS "public"."company" (
-          "id" SERIAL NOT NULL PRIMARY KEY,
-          "name" VARCHAR(255) NOT NULL,
-          "private" BOOLEAN,
-          "public" BOOLEAN,
-
-          "userid" VARCHAR(255),
-          CONSTRAINT fk_user
-          FOREIGN KEY("userid") 
-          REFERENCES "users"(username)
-          ON DELETE CASCADE
+	         REFERENCES roles(id),
+           "companyname" VARCHAR(255),
+           CONSTRAINT fk_company
+           FOREIGN KEY("companyname") 
+           REFERENCES "companies"(name)
+           ON DELETE CASCADE
         )`,
     );
 
@@ -52,7 +51,7 @@ export class CreateTables1662701635234 implements MigrationInterface {
         "companyid" SERIAL,
         CONSTRAINT fk_company
         FOREIGN KEY("companyid") 
-        REFERENCES "company"(id)
+        REFERENCES "companies"(id)
         ON DELETE CASCADE
       )`,
     );

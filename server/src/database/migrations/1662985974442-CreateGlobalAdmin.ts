@@ -31,7 +31,7 @@ export class CreateGlobalAdmin1662985974442 implements MigrationInterface {
     }
 
     if (!user) {
-      const saltRounds = process.env.AUTH_SALT_ROUNDS;
+      const saltRounds = +process.env.AUTH_SALT_ROUNDS;
       const hashedPassword = await bcrypt.hash(globalAdminPassword, saltRounds);
 
       const user = usersRepository.create({

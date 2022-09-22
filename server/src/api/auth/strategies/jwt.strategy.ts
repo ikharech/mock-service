@@ -30,6 +30,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       req.res.setHeader('jwt-token', newToken);
     }
 
-    return true;
+    return payload;
   }
 }

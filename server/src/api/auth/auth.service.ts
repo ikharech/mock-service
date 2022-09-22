@@ -55,7 +55,7 @@ export class AuthService {
   public async getByUsername(username: string): Promise<Users> {
     return await this.usersRepository.findOne({
       where: { username },
-      relations: ['role'],
+      relations: ['role', 'company'],
     });
   }
 }
